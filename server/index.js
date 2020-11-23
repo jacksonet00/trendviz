@@ -22,7 +22,10 @@ app.get('/users/:id', (req, res) => {
 })
 
 app.post('/trends/:state', (req, res) => {
-	db.collection("users").add({})
+	db.collection("users").add({
+		name: "Jackson",
+		baller: true
+	})
 	.then(function(docRef) {
 		console.log("Document written with ID: ", docRef.id);
 	})

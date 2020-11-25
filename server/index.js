@@ -3,11 +3,13 @@ const Twit = require('twit');
 const secret = require('./secret');
 const firebase = require('./config/firebase');
 const states = require('./config/states');
+const cors = require('cors');
 require('firebase/firestore');
 
 const db = firebase.firestore();
 
 const app = express();
+app.use(cors());
 const port = 5000;
 const T = new Twit(secret);
 
@@ -32,22 +34,22 @@ setTimeout(() => {
 	console.log('refresh completed.');
 }, (15 * 60 *1000));
 
-app.get('/trend/:stateCode', (req, res) => {
-	const { stateCode } = req.params;
-	console.log('fetching...');
-	db.collection("trends").get().then((querySnapshot) => {
-		querySnapshot.forEach((doc) => {
-			console.log(`${stateCode}: ${idList[stateCode]}`)
-			if (doc.ref == idList[stateCode]) {
-				res.status(200).send(doc.data());
-			}
+// TODO: change date to past week.
+app.get('/tweets/:trend', (req, res) => {
+	console.log('fetching tweets')
+	const { trend } = req.params;
+	T.get('search/tweets', { q: `${trend} since:2020-03-09`, count: 100 }, (err, data, response) => {
+		if (err) {
+			return res.status(201).send({
+				error: true,
+				err,
+			});
+		}
+		return res.status(200).send({
+			error: false,
+			data: data.statuses,
 		});
 	});
-	res.status(201).send({
-		error: true,
-		message: 'no data found'
-	});
-	console.log('fetching completed.');
 });
 
 app.get('/', (req, res) => {

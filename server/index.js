@@ -2,6 +2,7 @@ const express = require('express');
 const Twit = require('twit');
 const secret = require('./secret');
 const firebase = require('./config/firebase');
+const states = require('./config/states');
 require('firebase/firestore');
 
 const db = firebase.firestore();
@@ -10,38 +11,43 @@ const app = express();
 const port = 5000;
 const T = new Twit(secret);
 
-app.get('/users/:id', (req, res) => {
-	const { id } = req.params;
-
-	db.collection("users").get().then((querySnapshot) => {
-		querySnapshot.forEach((doc) => {
-			 console.log(`${doc.id} => ${doc.data()}`);
-		});
-  	});
-	res.status(200).send({});
-})
-
-app.post('/trends/:state', (req, res) => {
-	db.collection("users").add({
-		name: "Jackson",
-		baller: true
-	})
-	.then(function(docRef) {
-		console.log("Document written with ID: ", docRef.id);
-	})
-	.catch(function(error) {
-		console.error("Error adding document: ", error);
+const idList = {};
+setTimeout(() => {
+	console.log('refreshing...');
+	states.forEach((stateObj) => {
+		T.get('trends/place', { id: stateObj.woeid }, (err, data, response) => {
+			db.collection("trends").add({
+				state: stateObj.state,
+				data,
+			});
+		}).then((docRef) => {
+			idList[stateObj.state] = docRef;
+		}).catch((err) => {
+			res.send(201).status({
+				'error': true,
+				'message': err,
+			});
+		})
 	});
-	res.status(200).send({});
-});
+	console.log('refresh completed.');
+}, (15 * 60 *1000));
 
-
-app.get('/trends/NYC', (req, res) => {
-	T.get('trends/place', { id: 2459115 }, function(err, data, response) {
-		console.log(data)
-		console.log(data[0].trends[0])
-	 })
-	res.status(200).send('test');
+app.get('/trend/:stateCode', (req, res) => {
+	const { stateCode } = req.params;
+	console.log('fetching...');
+	db.collection("trends").get().then((querySnapshot) => {
+		querySnapshot.forEach((doc) => {
+			console.log(`${stateCode}: ${idList[stateCode]}`)
+			if (doc.ref == idList[stateCode]) {
+				res.status(200).send(doc.data());
+			}
+		});
+	});
+	res.status(201).send({
+		error: true,
+		message: 'no data found'
+	});
+	console.log('fetching completed.');
 });
 
 app.get('/', (req, res) => {

@@ -35,7 +35,6 @@ setTimeout(() => {
 app.get('/tweets/:trend', (req, res) => {
 	const { trend } = req.params;
 	let yesterday = new Date(new Date().setDate(new Date().getDate()-1));
-	console.log('fetching tweets...');
 	T.get('search/tweets', { q: `${trend} since:${yesterday.getFullYear}-${yesterday.getMonth()}-${yesterday.getDay()}`, count: 100 }, (err, data, response) => {
 		if (err) {
 			return res.status(201).send({
@@ -45,27 +44,9 @@ app.get('/tweets/:trend', (req, res) => {
 		}
 		return res.status(200).send({
 			error: false,
-			data,
+			data: data.statuses,
 		});
 	});
-});
-
-app.get('/trend/:stateCode', (req, res) => {
-	const { stateCode } = req.params;
-	console.log('fetching...');
-	db.collection("trends").get().then((querySnapshot) => {
-		querySnapshot.forEach((doc) => {
-			console.log(`${stateCode}: ${idList[stateCode]}`)
-			if (doc.ref == idList[stateCode]) {
-				res.status(200).send(doc.data());
-			}
-		});
-	});
-	res.status(201).send({
-		error: true,
-		message: 'no data found'
-	});
-	console.log('fetching completed.');
 });
 
 app.get('/', (req, res) => {

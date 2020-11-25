@@ -32,6 +32,24 @@ setTimeout(() => {
 	console.log('refresh completed.');
 }, (15 * 60 *1000));
 
+app.get('/tweets/:trend', (req, res) => {
+	const { trend } = req.params;
+	let yesterday = new Date(new Date().setDate(new Date().getDate()-1));
+	console.log('fetching tweets...');
+	T.get('search/tweets', { q: `${trend} since:${yesterday.getFullYear}-${yesterday.getMonth()}-${yesterday.getDay()}`, count: 100 }, (err, data, response) => {
+		if (err) {
+			return res.status(201).send({
+				error: true,
+				err,
+			});
+		}
+		return res.status(200).send({
+			error: false,
+			data,
+		});
+	});
+});
+
 app.get('/trend/:stateCode', (req, res) => {
 	const { stateCode } = req.params;
 	console.log('fetching...');

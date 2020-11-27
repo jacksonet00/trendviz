@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { URL } from '../constants/constants';
 
 const fetchTweets = async (_trend) => {
    let trend = _trend;
@@ -6,7 +7,7 @@ const fetchTweets = async (_trend) => {
       trend = _trend.substring(1, _trend.length);
    }
    const tweets = await axios.get(
-      `http://localhost:5000/tweets/${trend}`).then((res) => {
+      `${URL}/tweets/${trend}`).then((res) => {
          return res.data;
       });
    return tweets;

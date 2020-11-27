@@ -8,6 +8,8 @@ import Loading from './components/Loading';
 const App = () => {
 	const [data, setData] = useState({});
 	const [isLoading, setIsLoading] = useState(true);
+
+	const [selectedState, setSelectedState] = useState('');
 	
 	useEffect(() => {
 		const db = firebase.firestore();
@@ -23,14 +25,14 @@ const App = () => {
 
 	return(
 		<div>
-			{isLoading ? <Loading isLoading={isLoading}/> : 
+			{isLoading ? <Loading/> : 
 				<div>
 					<div>
 						<MenuBar data={data} />
 					</div>
 					<div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr' }}>
-						<Map data={data} />
-						<SideBar data={data} />
+						<Map data={data} selectedState={selectedState} onSelectState={(stateCode) => setSelectedState(stateCode)}/>
+						<SideBar data={data} selectedState={selectedState} />
 					</div>
 				</div>
 			}

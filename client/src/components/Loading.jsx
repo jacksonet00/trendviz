@@ -1,10 +1,24 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-const Loading = ({ isLoading }) => {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    '& > * + *': {
+      marginLeft: theme.spacing(2),
+    },
+    justifyContent: 'center',
+    marginTop: '50vh',
+  },
+}));
 
-   return <div>
-      <h1>Loading...</h1>
-   </div>
+export default function Loading() {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.root}>
+      <CircularProgress />
+    </div>
+  );
 }
-
-export default Loading;

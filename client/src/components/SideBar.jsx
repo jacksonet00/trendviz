@@ -18,9 +18,28 @@ const SideBar = ({ data, selectedState }) => {
    return (
       <div>
          <h1>SideBar</h1>
+         <h3>Top Trends</h3>
+         <p>==========</p>
+         {
+            data[selectedState] ? <div>
+               {data[selectedState].map((trend) => {
+                  return <p>{trend.name}</p>
+               })}
+            </div> : <div></div>
+         }
          <h3>Tweet Data</h3>
          <p>==========</p>
-         <pre>{JSON.stringify(tweets, 0, 3)}</pre>
+         <div>
+         {
+            tweets.map((tweet) => {
+               return (
+                  <div>
+                     <p>{tweet.id}</p>
+                  </div>
+               );
+            })
+         }
+         </div>
       </div>
    );
 };

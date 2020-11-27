@@ -3,7 +3,6 @@ import states from '../data/states';
 
 const Map = (props) => {
    const { data } = props;
-   console.log(data);
    return (
       <div>
          {

@@ -12,7 +12,14 @@ const Map = (props) => {
                <h1>Map</h1>
                {
                   states.map((state, i) => {
-                  return <p style={{ cursor: 'pointer' }} key={i} onClick={() => props.onSelectState(state.stateCode)}>{state.stateCode} top trend: {data[state.stateCode] ? data[state.stateCode][0].name : ''}</p>
+                  return (
+                     <p
+                        style={{ cursor: 'pointer' }}
+                        key={i} 
+                        onClick={() => props.onSelectState(state.stateCode)}>
+                           {state.stateCode}: {data[state.stateCode] ? data[state.stateCode][0].name : ''}
+                     </p>
+                  )
                   })
                }
                </div>

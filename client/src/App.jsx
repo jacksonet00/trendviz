@@ -20,7 +20,6 @@ const App = () => {
 					appData[doc.data().state] = doc.data().data[0].trends;
 				}
 			});
-			// TODO: sort trend data by tweet volume
 			setData(appData);
 			setIsLoading(false);
 	  });

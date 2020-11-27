@@ -16,7 +16,9 @@ const App = () => {
 		let appData = {}
 		db.collection("trends").get().then(function(querySnapshot) {
 			querySnapshot.forEach(function(doc) {
-				appData[doc.id] = doc.data();
+				if (doc.data().data.length > 0) {
+					appData[doc.data().state] = doc.data().data[0].trends;
+				}
 			});
 			setData(appData);
 			setIsLoading(false);
@@ -27,10 +29,11 @@ const App = () => {
 		<div>
 			{isLoading ? <Loading/> : 
 				<div>
+					{selectedState !== '' ? <h1>Selected State: {selectedState}</h1> : <h1>No State Selected</h1>}
 					<div>
 						<MenuBar data={data} />
 					</div>
-					<div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr' }}>
+					<div style={{ display: 'grid', gridTemplateColumns: '3fr 1fr' }}>
 						<Map data={data} selectedState={selectedState} onSelectState={(stateCode) => setSelectedState(stateCode)}/>
 						<SideBar data={data} selectedState={selectedState} />
 					</div>

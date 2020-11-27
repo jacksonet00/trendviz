@@ -1,12 +1,22 @@
 import React from 'react';
+import states from '../data/states';
 
-const Map = ({ data }) => {
-
-
+const Map = (props) => {
+   const { data } = props;
+   console.log(data);
    return (
       <div>
-         <h1>Map</h1>
-         <pre>data: {JSON.stringify(data, 0, 3)}</pre>
+         {
+            data === {} ? <div></div> :
+               <div>
+               <h1>Map</h1>
+               {
+                  states.map((state, i) => {
+                  return <p style={{ cursor: 'pointer' }} key={i} onClick={() => props.onSelectState(state.stateCode)}>{state.stateCode} top trend: {data[state.stateCode] ? data[state.stateCode][0].name : ''}</p>
+                  })
+               }
+               </div>
+         }
       </div>
    );
 };

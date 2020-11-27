@@ -2,7 +2,7 @@ const express = require('express');
 const Twit = require('twit');
 const secret = require('./secret');
 const firebase = require('./config/firebase');
-const states = require('./config/states');
+const states = require('./data/states');
 const cors = require('cors');
 require('firebase/firestore');
 
@@ -19,11 +19,11 @@ setTimeout(() => {
 	states.forEach((stateObj) => {
 		T.get('trends/place', { id: stateObj.woeid }, (err, data, response) => {
 			db.collection("trends").add({
-				state: stateObj.state,
+				state: stateObj.stateCode,
 				data,
 			});
 		}).then((docRef) => {
-			idList[stateObj.state] = docRef;
+			idList[stateObj.stateCode] = docRef;
 		}).catch((err) => {
 			res.send(201).status({
 				'error': true,

@@ -1,182 +1,182 @@
 const states = [
    {
-      state: 'AL',
+      stateCode: 'AL',
       woeid: 2453369
    },
    {
-      state: 'AK',
+      stateCode: 'AK',
       woeid: 2354490
    },
    {
-      state: 'AZ',
+      stateCode: 'AZ',
       woeid: 2471390
    },
    {
-      state: 'AR',
+      stateCode: 'AR',
       woeid: 2440351
    },
    {
-      state: 'CA',
+      stateCode: 'CA',
       woeid: 2487956
    },
    {
-      state: 'CO',
+      stateCode: 'CO',
       woeid: 2391279
    },
    {
-      state: 'CT',
+      stateCode: 'CT',
       woeid: 2418244
    },
    {
-      state: 'DC',
+      stateCode: 'DC',
       woeid: 2514815
    },
    {
-      state: 'FL',
+      stateCode: 'FL',
       woeid: 2503713
    },
    {
-      state: 'GA',
+      stateCode: 'GA',
       woeid: 2357024
    },
    {
-      state: 'HI',
+      stateCode: 'HI',
       woeid: 2423945
    },
    {
-      state: 'ID',
+      stateCode: 'ID',
       woeid: 2366355
    },
    {
-      state: 'IL',
+      stateCode: 'IL',
       woeid: 2379574
    },
    {
-      state: 'IN',
+      stateCode: 'IN',
       woeid: 2427032
    },
    {
-      state: 'IA',
+      stateCode: 'IA',
       woeid: 2391446
    },
    {
-      state: 'KS',
+      stateCode: 'KS',
       woeid: 2520077
    },
    {
-      state: 'KY',
+      stateCode: 'KY',
       woeid: 2442327
    },
    {
-      state: 'LA',
+      stateCode: 'LA',
       woeid: 2458833
    },
    {
-      state: 'MD',
+      stateCode: 'MD',
       woeid: 2358820
    },
    {
-      state: 'MA',
+      stateCode: 'MA',
       woeid: 2367105
    },
    {
-      state: 'MC',
+      stateCode: 'MC',
       woeid: 2391585
    },
    {
-      state: 'MN',
+      stateCode: 'MN',
       woeid: 2452078
    },
    {
-      state: 'MI',
+      stateCode: 'MI',
       woeid: 2428184
    },
    {
-      state: 'MO',
+      stateCode: 'MO',
       woeid: 2430683
    },
    {
-      state: 'MT',
+      stateCode: 'MT',
       woeid: 2364254
    },
    {
-      state: 'NB',
+      stateCode: 'NB',
       woeid: 2465512
    },
    {
-      state: 'NV',
+      stateCode: 'NV',
       woeid: 2436704
    },
    {
-      state: 'NH',
+      stateCode: 'NH',
       woeid: 2444674
    },
    {
-      state: 'NJ',
+      stateCode: 'NJ',
       woeid: 2459269
    },
    {
-      state: 'NM',
+      stateCode: 'NM',
       woeid: 2352824
    },
    {
-      state: 'NY',
+      stateCode: 'NY',
       woeid: 2459115
    },
    {
-      state: 'NC',
+      stateCode: 'NC',
       woeid: 2378426
    },
    {
-      state: 'OH',
+      stateCode: 'OH',
       woeid: 2383660
    },
    {
-      state: 'OK',
+      stateCode: 'OK',
       woeid: 2464592
    },
    {
-      state: 'OR',
+      stateCode: 'OR',
       woeid: 2475687
    },
    {
-      state: 'PA',
+      stateCode: 'PA',
       woeid: 2471217
    },
    {
-      state: 'RI',
+      stateCode: 'RI',
       woeid: 2477058
    },
    {
-      state: 'SC',
+      stateCode: 'SC',
       woeid: 2383552
    },
    {
-      state: 'SD',
+      stateCode: 'SD',
       woeid: 2494126
    },
    {
-      state: 'TN',
+      stateCode: 'TN',
       woeid: 2457170
    },
    {
-      state: 'TX',
+      stateCode: 'TX',
       woeid: 2357536
    },
    {
-      state: 'UT',
+      stateCode: 'UT',
       woeid: 2487610
    },
    {
-      state: 'VA',
+      stateCode: 'VA',
       woeid: 2512636
    },
    {
-      state: 'WN',
+      stateCode: 'WN',
       woeid: 2451822
    },
    {
-      state: 'WS',
+      stateCode: 'WS',
       woeid: 2490383
    },
 ];
@@ -189,27 +189,27 @@ module.exports = states;
          ====
 [
    {
-      state: 'DL',
+      stateCode: 'DL',
       woeid: 
    },
    {
-      state: 'VT',
+      stateCode: 'VT',
       woeid: 
    },
    {
-      state: 'WV',
+      stateCode: 'WV',
       woeid: 
    },
    {
-      state: 'ND',
+      stateCode: 'ND',
       woeid: 
    },
    {
-      state: 'ME',
+      stateCode: 'ME',
       woeid: 
    },
    {
-      state: 'WY',
+      stateCode: 'WY',
       woeid: 
    }
 ]

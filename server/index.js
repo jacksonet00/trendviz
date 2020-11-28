@@ -1,6 +1,6 @@
 const express = require('express');
 const Twit = require('twit');
-const secret = require('./secret');
+const { secret } = require('./secret');
 const firebase = require('./config/firebase');
 const states = require('./data/states');
 const cors = require('cors');

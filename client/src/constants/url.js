@@ -1,0 +1,1 @@
+export const URL = 'https://trendviz-api.herokuapp.com';

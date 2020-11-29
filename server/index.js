@@ -4,12 +4,16 @@ require('firebase/firestore');
 const Twit = require('twit');
 const cors = require('cors');
 const states = require('./data/states');
-const { secret } = require('./secret');
 const { yesterdaysDate } = require('./functions/date');
 
 const app = express();
 const db = firebase.firestore();
-const T = new Twit(secret);
+const T = new Twit({
+	consumer_key: process.env.CONSUMER_KEY,
+	consumer_secret: process.env.CONSUMER_SECRET,
+	access_token: process.env.ACCESS_TOKEN,
+	access_token_secret: process.env.ACCESS_TOKEN_SECRET,
+});
 
 app.use(cors());
 

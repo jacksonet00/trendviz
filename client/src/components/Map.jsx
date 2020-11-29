@@ -1,5 +1,5 @@
 import React from 'react';
-import states from '../data/states';
+import { codes } from '../data/states';
 
 const Map = (props) => {
    const { data } = props;
@@ -10,15 +10,12 @@ const Map = (props) => {
                <div>
                <h1>Map</h1>
                {
-                  states.map((state, i) => {
-                  return (
-                     <p
-                        style={{ cursor: 'pointer' }}
-                        key={i} 
-                        onClick={() => props.onSelectState(state.stateCode)}>
-                           {state.stateCode}: {data[state.stateCode] ? data[state.stateCode][0].name : ''}
-                     </p>
-                  )
+                  codes.map((code) => {
+                     return ( 
+                        <div key={code} onClick={() => props.onSelectState(code)} style={{ cursor: 'pointer' }}>
+                           <p>{code}: {data[code].length === 0 ? 'No Data' : `${data[code][0].name}`}</p>
+                        </div>
+                     )
                   })
                }
                </div>

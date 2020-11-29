@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import fetchTweets from '../actions/fetchTweets';
+import { TwitterTimelineEmbed, TwitterShareButton, TwitterFollowButton, TwitterHashtagButton, TwitterMentionButton, TwitterTweetEmbed, TwitterMomentShare, TwitterDMButton, TwitterVideoEmbed, TwitterOnAirButton } from 'react-twitter-embed';
+
 
 const SideBar = (props) => {
    const { data, selectedState, selectedTrend } = props;
@@ -39,8 +41,15 @@ const SideBar = (props) => {
                   {
                      tweets.map((tweet) => {
                         return (
-                           <div key={tweet.id}>
-                              <p>{tweet.id}</p>
+                           <div className="centerContent">
+                              <div className="selfCenter">
+                                 <TwitterTweetEmbed tweetId={tweet.id_str} options={{
+                                    cards: 'hidden',
+                                    width: 300,
+                                    maxWidth: 800,
+                                 }}
+                                 />
+                              </div>
                            </div>
                         );
                      })

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { URL } from '../constants/constants';
+import { URL } from '../constants/url';
 
 const fetchTweets = async (_trend) => {
    let trend = _trend;

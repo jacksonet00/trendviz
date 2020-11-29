@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import firebase from './config/firebase';
+import { codes } from './data/states';
 import Map from './components/Map';
 import SideBar from './components/SideBar';
 import MenuBar from './components/MenuBar';
@@ -20,15 +21,25 @@ const App = () => {
 					appData[doc.data().state] = doc.data().data[0].trends;
 				}
 			});
+			codes.forEach((stateCode) => {
+				// 1. check if stateCode is in appData
+				if(!appData.hasOwnProperty(stateCode)) {
+					// 2. if not fill with default data
+					appData[stateCode] = [];
+				}
+			})
 			setData(appData);
 			setIsLoading(false);
 	  });
 	}, []);
 
 	useEffect(() => {
-      if(data[selectedState]) {
+      if (data[selectedState] && data[selectedState].length > 0) {
          setSelectedTrend(data[selectedState][0].name);
-      }
+		}
+		else if (data[selectedState] && data[selectedState].length === 0) {
+			setSelectedTrend('No Data');
+		}
 	}, [data, selectedState]);
 
 	return(

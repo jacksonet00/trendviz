@@ -3,7 +3,7 @@ const firebase = require('./config/firebase');
 require('firebase/firestore');
 const Twit = require('twit');
 const cors = require('cors');
-const states = require('./data/states');
+const { states } = require('./data/states');
 const { yesterdaysDate } = require('./functions/date');
 
 const app = express();
@@ -34,8 +34,15 @@ setTimeout(() => {
 
 app.get('/tweets/:trend', (req, res) => {
 	const { trend } = req.params;
-	console.log(`fetching tweets about ${trend} since ${yesterdaysDate()}`);
-	T.get('search/tweets', { q: `${trend} since:${yesterdaysDate()}`, count: 100, }, (err, data, response) => {
+	console.log(`fetching 100 popular english tweets about ${trend} since ${yesterdaysDate()}`);
+	T.get('search/tweets', 
+		{
+			q: `${trend} since:${yesterdaysDate()}`,
+			result_type: 'popular',
+			lang: 'en',
+			count: 100,
+		},
+		(err, data, response) => {
 		if (err) {
 			return res.status(201).send({
 				error: true,

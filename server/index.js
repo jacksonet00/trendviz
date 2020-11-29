@@ -13,6 +13,11 @@ app.use(cors());
 const port = 5000;
 const T = new Twit(secret);
 
+function yesterdaysDate() {
+	const yesterday = new Date((new Date()).valueOf() - 2*1000*60*60*24);
+	return yesterday.toISOString().substring(0, 10);
+}
+
 const idList = {};
 setTimeout(() => {
 	console.log('refreshing...');
@@ -34,11 +39,10 @@ setTimeout(() => {
 	console.log('refresh completed.');
 }, (15 * 60 *1000));
 
-// TODO: change date to past week.
 app.get('/tweets/:trend', (req, res) => {
-	console.log('fetching tweets')
 	const { trend } = req.params;
-	T.get('search/tweets', { q: `${trend} since:2020-03-09`, count: 100 }, (err, data, response) => {
+	console.log(`fetching tweets about ${trend} since ${yesterdaysDate()}`)
+	T.get('search/tweets', { q: `${trend} since:${yesterdaysDate()}`, count: 100 }, (err, data, response) => {
 		if (err) {
 			return res.status(201).send({
 				error: true,

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import fetchTweets from '../actions/fetchTweets';
-import { TwitterTimelineEmbed, TwitterShareButton, TwitterFollowButton, TwitterHashtagButton, TwitterMentionButton, TwitterTweetEmbed, TwitterMomentShare, TwitterDMButton, TwitterVideoEmbed, TwitterOnAirButton } from 'react-twitter-embed';
+import {TwitterTweetEmbed} from 'react-twitter-embed';
 
 
 const SideBar = (props) => {
@@ -39,19 +39,28 @@ const SideBar = (props) => {
                <p>==========</p>
                <div>
                   {
-                     tweets.map((tweet) => {
-                        return (
-                           <div className="centerContent">
-                              <div className="selfCenter">
-                                 <TwitterTweetEmbed tweetId={tweet.id_str} options={{
-                                    cards: 'hidden',
-                                    width: 300,
-                                    maxWidth: 800,
-                                 }}
-                                 />
+                     tweets.map((tweet, j) => {
+                        if (j < 3) {
+                           return (
+                              <div className="centerContent">
+                                 <div className="selfCenter">
+                                    <TwitterTweetEmbed 
+                                       tweetId={tweet.id_str}
+                                       theme="dark"
+                                       options={{
+                                          cards: 'hidden',
+                                          width: 300,
+                                          maxWidth: 800,
+                                       }}
+                                    />
+                                 </div>
                               </div>
-                           </div>
-                        );
+                           );
+                        }
+                        else
+                        {
+                           j = 100
+                        }
                      })
                   }
                </div>

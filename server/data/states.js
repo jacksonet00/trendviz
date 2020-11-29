@@ -1,19 +1,7 @@
-const states = [
-   {
-      stateCode: 'AL',
-      woeid: 2453369
-   },
-   {
-      stateCode: 'AK',
-      woeid: 2354490
-   },
+module.exports.states = [
    {
       stateCode: 'AZ',
       woeid: 2471390
-   },
-   {
-      stateCode: 'AR',
-      woeid: 2440351
    },
    {
       stateCode: 'CA',
@@ -22,10 +10,6 @@ const states = [
    {
       stateCode: 'CO',
       woeid: 2391279
-   },
-   {
-      stateCode: 'CT',
-      woeid: 2418244
    },
    {
       stateCode: 'DC',
@@ -44,24 +28,12 @@ const states = [
       woeid: 2423945
    },
    {
-      stateCode: 'ID',
-      woeid: 2366355
-   },
-   {
       stateCode: 'IL',
       woeid: 2379574
    },
    {
       stateCode: 'IN',
       woeid: 2427032
-   },
-   {
-      stateCode: 'IA',
-      woeid: 2391446
-   },
-   {
-      stateCode: 'KS',
-      woeid: 2520077
    },
    {
       stateCode: 'KY',
@@ -96,24 +68,12 @@ const states = [
       woeid: 2430683
    },
    {
-      stateCode: 'MT',
-      woeid: 2364254
-   },
-   {
       stateCode: 'NB',
       woeid: 2465512
    },
    {
       stateCode: 'NV',
       woeid: 2436704
-   },
-   {
-      stateCode: 'NH',
-      woeid: 2444674
-   },
-   {
-      stateCode: 'NJ',
-      woeid: 2459269
    },
    {
       stateCode: 'NM',
@@ -148,14 +108,6 @@ const states = [
       woeid: 2477058
    },
    {
-      stateCode: 'SC',
-      woeid: 2383552
-   },
-   {
-      stateCode: 'SD',
-      woeid: 2494126
-   },
-   {
       stateCode: 'TN',
       woeid: 2457170
    },
@@ -181,13 +133,19 @@ const states = [
    },
 ];
 
-module.exports = states;
-
 /*
 
          Find
          ====
 [
+   {
+      stateCode: 'AL',
+      woeid: 2364559
+   },
+   {
+      stateCode: 'CT',
+      woeid: 2458410
+   },
    {
       stateCode: 'DL',
       woeid: 
@@ -211,7 +169,47 @@ module.exports = states;
    {
       stateCode: 'WY',
       woeid: 
-   }
+   },
+   {
+      stateCode: 'AK',
+      woeid: 2354490 // Not found
+   },
+   {
+      stateCode: 'AR',
+      woeid: 2440351  // Not found
+   },
+   {
+      stateCode: 'ID',
+      woeid: 2366355 // Not found
+   },
+   {
+      stateCode: 'IA',
+      woeid: 2391446 // Not found
+   },
+   {
+      stateCode: 'KS',
+      woeid: 2520077 // Not found
+   },
+   {
+      stateCode: 'MT',
+      woeid: 2364254 // Not found
+   },
+   {
+      stateCode: 'NH',
+      woeid: 2444674 // Not found
+   },
+   {
+      stateCode: 'NJ',
+      woeid: 2459269 // Not found
+   },
+   {
+      stateCode: 'SC',
+      woeid: 2383552 // Not found
+   },
+   {
+      stateCode: 'SD',
+      woeid: 2494126 // Not found
+   },
 ]
 
 */

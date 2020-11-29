@@ -1,12 +1,10 @@
 {
-	"name": "server",
+	"name": "trendviz_api",
 	"version": "1.0.0",
-	"description": "trendviz backend",
+	"description": "The backend for trendviz, the Twitter trend visualization tool.",
 	"main": "index.js",
 	"scripts": {
-		"start": "node index.js",
-		"start-dev": "nodemon index.js",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"start": "node index.js"
 	},
 	"author": "Jackson Taylor, Aayush Shah, Ian Craig",
 	"license": "ISC",
@@ -14,7 +12,6 @@
 		"cors": "^2.8.5",
 		"express": "^4.17.1",
 		"firebase": "^8.1.1",
-		"nodemon": "^2.0.6",
 		"twit": "^2.2.11"
 	}
 }

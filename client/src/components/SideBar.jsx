@@ -10,7 +10,7 @@ const SideBar = (props) => {
          const tweetData = await fetchTweets(trend);
          setTweets(tweetData.data);
       }
-      if(selectedTrend !== '') {
+      if(selectedTrend !== 'No Data') {
          fetchData(selectedTrend);
       }
    }, [data, selectedTrend]);
@@ -19,7 +19,7 @@ const SideBar = (props) => {
       <div>
          <h1>SideBar</h1>
          {
-            selectedTrend === '' ? <></> :
+            selectedTrend === 'No Data' ? <></> :
             <div>
                <h3>Top Trends</h3>
                <p>==========</p>

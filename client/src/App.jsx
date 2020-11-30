@@ -58,12 +58,14 @@ const App = () => {
 							selectedState={selectedState}
 							onSelectState={(stateCode) => setSelectedState(stateCode)}
 						/>
-						<SideBar
-							data={data}
-							selectedState={selectedState}
-							selectedTrend={selectedTrend}
-							onSelectTrend={(trend) => setSelectedTrend(trend)}
-						/>
+						<div style={{backgroundColor : "#3E3C41"}}>
+							<SideBar
+								data={data}
+								selectedState={selectedState}
+								selectedTrend={selectedTrend}
+								onSelectTrend={(trend) => setSelectedTrend(trend)}
+							/>
+						</div>
 					</div>
 				</div>
 			}

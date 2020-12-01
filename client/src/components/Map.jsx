@@ -4,7 +4,7 @@ import { codes } from '../data/states';
 const Map = (props) => {
    const { data } = props;
    return (
-      <div>
+   <div>
          {
             data === {} ? <div></div> :
                <div>

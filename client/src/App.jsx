@@ -45,20 +45,22 @@ const App = () => {
 	return(
 		<div>
 			{isLoading ? <Loading /> : 
-				<div>
-					<div>
+				<div style = {{"color" : "white", backgroundColor : "black"}}>
+					<div style={{border: "5px solid white"}}>
 						<MenuBar
 							data={data}
 						/>
-						{selectedState !== '' ? <h1>Selected State: {selectedState} | Selected Trend: {selectedTrend}</h1> : <h1>No State Selected</h1>}
+						<div style={{paddingLeft: "10px"}}>
+							{selectedState !== '' ? <h1>Selected State: {selectedState} | Selected Trend: {selectedTrend}</h1> : <h1>No State Selected</h1>}
+						</div>
 					</div>
-					<div style={{ display: 'grid', gridTemplateColumns: '3fr 1fr' }}>
+					<div style={{borderLeft: "5px solid white", borderRight: "5px solid white", borderBottom: "5px solid white",display: 'grid', gridTemplateColumns: '3fr 1fr' }}>
 						<Map
 							data={data}
 							selectedState={selectedState}
 							onSelectState={(stateCode) => setSelectedState(stateCode)}
 						/>
-						<div style={{backgroundColor : "#3E3C41"}}>
+						<div style={{borderLeft: "5px solid white"}}>
 							<SideBar
 								data={data}
 								selectedState={selectedState}

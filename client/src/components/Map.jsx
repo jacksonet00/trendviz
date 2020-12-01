@@ -3,19 +3,12 @@ import USAMap from "react-usa-map";
 import "../constants/format.css";
 
 const Map = (props) => {
-menubar
-   const { data } = props;
-   return (
-   <div>
-
   const { data } = props;
   var selectedMap;
    function mapHandler(event) {
       var stateName = event.target.dataset.name;
       selectedMap = stateName;
       props.onSelectState(stateName);  
-     
-      
    };
    const colorControl = () => {
    return{
@@ -27,8 +20,7 @@ menubar
   return (
      <div>
       {           
-         <div>
-         main
+         <div style={{paddingTop: "30px", display: "flex", justifyContent: 'center', width: '100%'}}>
          {
             <USAMap onClick={mapHandler} customize={colorControl()}></USAMap>             
          }

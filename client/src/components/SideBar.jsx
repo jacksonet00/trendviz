@@ -36,7 +36,7 @@ const SideBar = (props) => {
                   data[selectedState] ? <div style = {{textIndent: "30px", paddingBottom: "10px"}}>
                      {data[selectedState].map((trend, i) => {
                         if (i < 5) { 
-                           return <p style={{fontSize: "18px", cursor: 'pointer', fontWeight: selectedTrend === trend.name ? "bold" : "normal"}} key={i} onClick={() => {props.onSelectTrend(trend.name)}}>{trend.name}</p>
+                           return <p style={{fontSize: "18px", cursor: 'pointer', fontWeight: selectedTrend === trend.name ? "bold" : "normal"}} key={i} onClick={() => {props.onSelectTrend(trend.name)}}> <span role="img" aria-label="fire">🔥</span>{trend.name}</p>
                         }
                         return <></>
                      })}

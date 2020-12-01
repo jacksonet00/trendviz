@@ -1,27 +1,40 @@
 import React from 'react';
-import { codes } from '../data/states';
+import USAMap from "react-usa-map";
+import "../constants/format.css";
 
 const Map = (props) => {
+menubar
    const { data } = props;
    return (
    <div>
-         {
-            data === {} ? <div></div> :
-               <div>
-               <h1>Map</h1>
-               {
-                  codes.map((code) => {
-                     return ( 
-                        <div key={code} onClick={() => props.onSelectState(code)} style={{ cursor: 'pointer' }}>
-                           <p>{code}: {data[code].length === 0 ? 'No Data' : `${data[code][0].name}`}</p>
-                        </div>
-                     )
-                  })
-               }
-               </div>
-         }
-      </div>
-   );
-};
 
+  const { data } = props;
+  var selectedMap;
+   function mapHandler(event) {
+      var stateName = event.target.dataset.name;
+      selectedMap = stateName;
+      props.onSelectState(stateName);  
+     
+      
+   };
+   const colorControl = () => {
+   return{
+      "NJ" : {
+         fill: "navy"
+      }};
+   };
+
+  return (
+     <div>
+      {           
+         <div>
+         main
+         {
+            <USAMap onClick={mapHandler} customize={colorControl()}></USAMap>             
+         }
+         </div>
+        }
+     </div>
+  );
+};
 export default Map;

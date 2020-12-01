@@ -130,6 +130,77 @@ export const states = [
    {
       stateCode: 'WS',
       woeid: 2490383
+   },{
+      stateCode: 'AL',
+      woeid: 23424977
+   },
+   {
+      stateCode: 'CT',
+      woeid: 23424977
+   },
+   {
+      stateCode: 'DL',
+      woeid: 23424977
+   },
+   {
+      stateCode: 'VT',
+      woeid: 23424977
+   },
+   {
+      stateCode: 'WV',
+      woeid: 23424977
+   },
+   {
+      stateCode: 'ND',
+      woeid: 23424977
+   },
+   {
+      stateCode: 'ME',
+      woeid: 23424977
+   },
+   {
+      stateCode: 'WY',
+      woeid: 23424977
+   },
+   {
+      stateCode: 'AK',
+      woeid: 23424977
+   },
+   {
+      stateCode: 'AR',
+      woeid: 23424977 
+   },
+   {
+      stateCode: 'ID',
+      woeid: 23424977
+   },
+   {
+      stateCode: 'IA',
+      woeid: 23424977
+   },
+   {
+      stateCode: 'KS',
+      woeid: 23424977
+   },
+   {
+      stateCode: 'MT',
+      woeid: 23424977
+   },
+   {
+      stateCode: 'NH',
+      woeid: 23424977
+   },
+   {
+      stateCode: 'NJ',
+      woeid: 23424977
+   },
+   {
+      stateCode: 'SC',
+      woeid: 23424977
+   },
+   {
+      stateCode: 'SD',
+      woeid: 23424977
    },
 ];
 

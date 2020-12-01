@@ -130,86 +130,76 @@ module.exports.states = [
    {
       stateCode: 'WS',
       woeid: 2490383
-   },
-];
-
-/*
-
-         Find
-         ====
-[
-   {
+   },{
       stateCode: 'AL',
-      woeid: 2364559
+      woeid: 23424977
    },
    {
       stateCode: 'CT',
-      woeid: 2458410
+      woeid: 23424977
    },
    {
       stateCode: 'DL',
-      woeid: 
+      woeid: 23424977
    },
    {
       stateCode: 'VT',
-      woeid: 
+      woeid: 23424977
    },
    {
       stateCode: 'WV',
-      woeid: 
+      woeid: 23424977
    },
    {
       stateCode: 'ND',
-      woeid: 
+      woeid: 23424977
    },
    {
       stateCode: 'ME',
-      woeid: 
+      woeid: 23424977
    },
    {
       stateCode: 'WY',
-      woeid: 
+      woeid: 23424977
    },
    {
       stateCode: 'AK',
-      woeid: 2354490 // Not found
+      woeid: 23424977
    },
    {
       stateCode: 'AR',
-      woeid: 2440351  // Not found
+      woeid: 23424977 
    },
    {
       stateCode: 'ID',
-      woeid: 2366355 // Not found
+      woeid: 23424977
    },
    {
       stateCode: 'IA',
-      woeid: 2391446 // Not found
+      woeid: 23424977
    },
    {
       stateCode: 'KS',
-      woeid: 2520077 // Not found
+      woeid: 23424977
    },
    {
       stateCode: 'MT',
-      woeid: 2364254 // Not found
+      woeid: 23424977
    },
    {
       stateCode: 'NH',
-      woeid: 2444674 // Not found
+      woeid: 23424977
    },
    {
       stateCode: 'NJ',
-      woeid: 2459269 // Not found
+      woeid: 23424977
    },
    {
       stateCode: 'SC',
-      woeid: 2383552 // Not found
+      woeid: 23424977
    },
    {
       stateCode: 'SD',
-      woeid: 2494126 // Not found
+      woeid: 23424977
    },
-]
-
-*/
+];

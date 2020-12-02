@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import fetchTweets from '../actions/fetchTweets';
 import {TwitterTweetEmbed} from 'react-twitter-embed';
-import { TextareaAutosize } from '@material-ui/core';
-
 
 const SideBar = (props) => {
    const { data, selectedState, selectedTrend } = props;

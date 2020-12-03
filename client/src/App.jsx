@@ -70,21 +70,18 @@ const App = () => {
 	return(
 		<div style={{ maxHeight: '100vh', overflow: 'hidden'}}>
 			{isLoading ? <Loading /> : 
-				<div style = {{"color" : "white", backgroundColor : "black"}}>
-					<div style={{border: "5px solid white"}}>
+				<div style = {{ "color" : "white", backgroundColor : "black" }}>
+					<div style={{ border: "5px solid white", maxHeight: '15vh'}}>
 						<MenuBar
 							data={mapData}
 						/>
-						<div style={{paddingLeft: "10px"}}>
-							{selectedState !== '' ? <h1>Selected State: {selectedState} | Selected Trend: {selectedTrend}</h1> : <h1>No State Selected</h1>}
-						</div>
 					</div>
-					<div style={{borderLeft: "5px solid white", borderRight: "5px solid white", borderBottom: "5px solid white",display: 'grid', gridTemplateColumns: '3fr 1fr' }}>
-						<Map
-							data={mapData}
-							selectedState={selectedState}
-							onSelectState={(stateCode) => setSelectedState(stateCode)}
-						/>
+					<div style={{ maxHeight: '85vh', borderLeft: "5px solid white", borderRight: "5px solid white", borderBottom: "5px solid white",display: 'grid', gridTemplateColumns: '3fr 1fr' }}>
+							<Map
+								data={mapData}
+								selectedState={selectedState}
+								onSelectState={(stateCode) => setSelectedState(stateCode)}
+							/>
 						<div style={{borderLeft: "5px solid white"}}>
 							<SideBar
 								dataHt={data3}

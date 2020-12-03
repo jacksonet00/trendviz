@@ -102,7 +102,7 @@ const SideBar = (props) => {
                }
                <h3>Top Tweets about {selectedTrend}</h3>
                <p>==========</p>
-               <List style={{ overflowY: 'scroll', maxHeight: '600px', }}>
+               <List style={{ overflowY: 'scroll', minHeight: '500px', maxHeight: '500px' }}>
                   {
                      tweets.map((tweet, i) => {
                            return (

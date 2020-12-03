@@ -68,16 +68,17 @@ const App = () => {
 	}, [data, selectedState]);
 
 	return(
-		<div style={{ maxHeight: '100vh', overflow: 'hidden'}}>
+		<div style={{ height: '100vh' , overflow: 'hidden'}}>
 			{isLoading ? <Loading /> : 
 				<div style = {{ "color" : "white", backgroundColor : "black" }}>
-					<div style={{ border: "5px solid white", maxHeight: '15vh'}}>
+					<div style={{ border: "5px solid white", height: '15vh'}}>
 						<MenuBar
 							data={mapData}
 						/>
 					</div>
-					<div style={{ maxHeight: '85vh', borderLeft: "5px solid white", borderRight: "5px solid white", borderBottom: "5px solid white",display: 'grid', gridTemplateColumns: '3fr 1fr' }}>
+					<div style={{ height: '85vh', borderLeft: "5px solid white", borderRight: "5px solid white", borderBottom: "5px solid white",display: 'grid', gridTemplateColumns: '3fr 1fr' }}>
 							<Map
+								
 								data={mapData}
 								selectedState={selectedState}
 								onSelectState={(stateCode) => setSelectedState(stateCode)}

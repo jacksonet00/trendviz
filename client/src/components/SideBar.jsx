@@ -74,33 +74,24 @@ const SideBar = (props) => {
    }, [toggleSet, selectedState, dataHt, dataSet]);
 
    return (
-      <div style = {{"color" : "white"}}>
-         <h1>SideBar</h1>
+      <div style={{paddingLeft: "10px"}}>
          {
             selectedTrend === 'No Data' || selectedTrend === '' ? <></> :
             <div>
-               <h3>Top Trends in {selectedState}</h3>
+               <h2>Trending Now <span role="img" aria-label="fire">🔥</span></h2>
                <button onClick={() => setToggleSet(!toggleSet)}>{toggleSet ? 'Use Hashtable' : 'Use Set'}</button>
                <h2>{similarity.state} is {similarity.percentage}% Similar (Found in {similarity.time}ms)</h2>
-               <p>==========</p>
                {
-                  dataHt[selectedState] ? <div>
-                     {dataHt[selectedState].map((trend, i) => {
-                        if (i < 5) {
-                           return (
-                              <p
-                                 style={{ cursor: 'pointer' }}
-                                 key={i}
-                                 onClick={() => props.onSelectTrend(trend)}
-                              >
-                                 {trend}
-                              </p>);
+                  data[selectedState] ? <div style = {{textIndent: "30px", paddingBottom: "10px"}}>
+                     {data[selectedState].map((trend, i) => {
+                        if (i < 5) { 
+                           return <p style={{fontSize: "18px", cursor: 'pointer', fontWeight: selectedTrend === trend.name ? "bold" : "normal"}} key={i} onClick={() => {props.onSelectTrend(trend.name)}}> <span role="img" aria-label="fire">🔥</span>{trend.name}</p>
                         }
                         return <></>
                      })}
                   </div> : <div></div>
                }
-               <h3>Top Tweets about {selectedTrend}</h3>
+               <h2>Top Tweets about {selectedTrend}</h2>
                <p>==========</p>
                <List style={{ overflowY: 'scroll', minHeight: '500px', maxHeight: '500px' }}>
                   {

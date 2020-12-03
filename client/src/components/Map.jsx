@@ -23,7 +23,7 @@ const Map = (props) => {
    };
 
   return (
-     <div style={{ backgroundColor: 'black', height: '100%', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+     <div style={{ height: '100%', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
          <USAMap onClick={mapHandler} customize={colorControl()}></USAMap>             
      </div>
   );

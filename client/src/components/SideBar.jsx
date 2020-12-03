@@ -78,14 +78,14 @@ const SideBar = (props) => {
          {
             selectedTrend === 'No Data' || selectedTrend === '' ? <></> :
             <div>
-               <h2>Trending Now <span role="img" aria-label="fire">🔥</span></h2>
+               <h2>Trending Now <span role="img" aria-label="fire">🔥</span> in {selectedState}</h2>
                <button onClick={() => setToggleSet(!toggleSet)}>{toggleSet ? 'Use Hashtable' : 'Use Set'}</button>
                <h2>{similarity.state} is {similarity.percentage}% Similar (Found in {similarity.time}ms)</h2>
                {
-                  data[selectedState] ? <div style = {{textIndent: "30px", paddingBottom: "10px"}}>
-                     {data[selectedState].map((trend, i) => {
+                  dataHt[selectedState] ? <div style = {{textIndent: "30px", paddingBottom: "10px"}}>
+                     {dataHt[selectedState].map((trend, i) => {
                         if (i < 5) { 
-                           return <p style={{fontSize: "18px", cursor: 'pointer', fontWeight: selectedTrend === trend.name ? "bold" : "normal"}} key={i} onClick={() => {props.onSelectTrend(trend.name)}}> <span role="img" aria-label="fire">🔥</span>{trend.name}</p>
+                           return <p style={{fontSize: "18px", cursor: 'pointer', fontWeight: selectedTrend === trend ? "bold" : "normal"}} key={i} onClick={() => {props.onSelectTrend(trend)}}> <span role="img" aria-label="fire">🔥</span>{trend}</p>
                         }
                         return <></>
                      })}

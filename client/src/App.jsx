@@ -13,7 +13,7 @@ const App = () => {
 	const [data3, setData3] = useState({});
 	const [mapData, setMapData] = useState({});
 	const [isLoading, setIsLoading] = useState(true);
-	const [selectedState, setSelectedState] = useState('');
+	const [selectedState, setSelectedState] = useState('FL');
 	const [selectedTrend, setSelectedTrend] = useState('');
 	
 	useEffect(() => {
@@ -46,8 +46,7 @@ const App = () => {
 			let colorCount = 0;
 			Object.entries(appData3).forEach((entry) => {
 				if (!appMapData.hasOwnProperty(entry[1][0])) {
-					appMapData[entry[1][0]] = { states: [], color: colors[colorCount] };
-					colorCount++;
+					appMapData[entry[1][0]] = { states: [], color: colors[colorCount++] };
 				}
 				appMapData[entry[1][0]].states.push(entry[0]);
 			});
@@ -69,18 +68,17 @@ const App = () => {
 	}, [data, selectedState]);
 
 	return(
-		<div>
+		<div style={{ maxHeight: '100vh', overflow: 'hidden'}}>
 			{isLoading ? <Loading /> : 
 				<div>
 					<div>
 						<MenuBar
 							data={mapData}
 						/>
-						{selectedState !== '' ? <h1>Selected State: {selectedState} | Selected Trend: {selectedTrend}</h1> : <h1>No State Selected</h1>}
 					</div>
 					<div style={{ display: 'grid', gridTemplateColumns: '3fr 1fr' }}>
 						<Map
-							data={data}
+							data={mapData}
 							selectedState={selectedState}
 							onSelectState={(stateCode) => setSelectedState(stateCode)}
 						/>

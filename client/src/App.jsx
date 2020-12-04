@@ -1,91 +1,106 @@
 import React, { useEffect, useState } from 'react';
 import firebase from './config/firebase';
-import { codes } from './data/states';
 import { colors } from './data/colors';
 import Map from './components/Map';
 import SideBar from './components/SideBar';
 import MenuBar from './components/MenuBar';
 import Loading from './components/Loading';
+import { makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+	root: {
+		maxHeight: '100vh',
+		maxWidth: '100vw',
+		overflow: 'hidden',
+	},
+	grid: {
+		display: 'grid',
+		gridTemplateColumns: '3fr 1fr',
+		height: '85vh',
+	},
+	content: {
+		color: 'white',
+		backgroundColor: 'black',
+	},
+	menuBarContainer: {
+		borderBottom: '5px solid white',
+		height: '15vh',
+	},
+	sideBarContainer: {
+		borderLeft: '5px solid white',
+	},
+}));
 
 const App = () => {
-	const [data, setData] = useState({});
-	const [data2, setData2] = useState({});
-	const [data3, setData3] = useState({});
+	const [dataSet, setDataSet] = useState({});
+	const [dataHt, setDataHt] = useState({});
 	const [mapData, setMapData] = useState({});
 	const [isLoading, setIsLoading] = useState(true);
 	const [selectedState, setSelectedState] = useState('FL');
 	const [selectedTrend, setSelectedTrend] = useState('');
+
+	const classes = useStyles();
 	
 	useEffect(() => {
 		const db = firebase.firestore();
-		let appData = {};
-		let appData2 = {};
-		let appData3 = {};
+		let appdataSet = {};
+		let appDataHt = {};
 		let appMapData = {};
 
 		db.collection("trends").get().then(function(querySnapshot) {
 			querySnapshot.forEach(function(doc) {
 				if (doc.data().data.length > 0) {
-					appData[doc.data().state] = doc.data().data[0].trends;
-					appData3[doc.data().state] = doc.data().data[0].trends.map(t => t.name);
+					appDataHt[doc.data().state] = doc.data().data[0].trends.map(t => t.name);
 					
-					const appData2Set = new Set();
+					const subset = new Set();
 					doc.data().data[0].trends.map(t => t.name).forEach((trend) => {
-						appData2Set.add(trend);
+						subset.add(trend);
 					});
-					appData2[doc.data().state] = appData2Set;
-				}
-			});
-			codes.forEach((stateCode) => {
-				// 1. check if stateCode is in appData
-				if(!appData.hasOwnProperty(stateCode)) {
-					// 2. if not fill with default data
-					appData[stateCode] = [];
+					appdataSet[doc.data().state] = subset;
 				}
 			});
 			let colorCount = 0;
-			Object.entries(appData3).forEach((entry) => {
+			Object.entries(appDataHt).forEach((entry) => {
 				if (!appMapData.hasOwnProperty(entry[1][0])) {
 					appMapData[entry[1][0]] = { states: [], color: colors[colorCount++] };
 				}
 				appMapData[entry[1][0]].states.push(entry[0]);
 			});
-			setData(appData);
-			setData2(appData2);
-			setData3(appData3);
+			setDataSet(appdataSet);
+			setDataHt(appDataHt);
 			setMapData(appMapData);
 			setIsLoading(false);
 	  });
 	}, []);
 
 	useEffect(() => {
-      if (data[selectedState] && data[selectedState].length > 0) {
-         setSelectedTrend(data[selectedState][0].name);
+      if (dataHt[selectedState] && dataHt[selectedState].length > 0) {
+         setSelectedTrend(dataHt[selectedState][0]);
 		}
-		else if (data[selectedState] && data[selectedState].length === 0) {
+		else if (dataHt[selectedState] && dataHt[selectedState].length === 0) {
 			setSelectedTrend('No Data');
 		}
-	}, [data, selectedState]);
+	}, [dataHt, selectedState]);
 
 	return(
-		<div style={{ maxHeight: '100vh', overflow: 'hidden'}}>
+		<div className={classes.root}>
 			{isLoading ? <Loading /> : 
-				<div style = {{ "color" : "white", backgroundColor : "black" }}>
-					<div style={{ border: "5px solid white", maxHeight: '15vh'}}>
+				<div className={classes.content}>
+					<div className={classes.menuBarContainer}>
 						<MenuBar
 							data={mapData}
 						/>
 					</div>
-					<div style={{ maxHeight: '85vh', borderLeft: "5px solid white", borderRight: "5px solid white", borderBottom: "5px solid white",display: 'grid', gridTemplateColumns: '3fr 1fr' }}>
-							<Map
-								data={mapData}
-								selectedState={selectedState}
-								onSelectState={(stateCode) => setSelectedState(stateCode)}
-							/>
-						<div style={{borderLeft: "5px solid white"}}>
+					<div className={classes.grid}>
+						<Map
+							data={mapData}
+							selectedState={selectedState}
+							onSelectState={(stateCode) => setSelectedState(stateCode)}
+						/>
+						<div className={classes.sideBarContainer}>
 							<SideBar
-								dataHt={data3}
-								dataSet={data2}
+								dataHt={dataHt}
+								dataSet={dataSet}
 								selectedState={selectedState}
 								selectedTrend={selectedTrend}
 								onSelectTrend={(trend) => setSelectedTrend(trend)}

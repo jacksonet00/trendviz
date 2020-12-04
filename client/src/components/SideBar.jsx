@@ -1,20 +1,63 @@
 import React, { useEffect, useState } from 'react';
-import fetchTweets from '../actions/fetchTweets';
-import {TwitterTweetEmbed} from 'react-twitter-embed';
 import List from '@material-ui/core/List';
+import { Container, Grid, makeStyles, Typography } from '@material-ui/core';
+import Tweet from './Tweet';
+import fetchTweets from '../actions/fetchTweets';
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 
-const SideBar = (props) => {
+const useStyles = makeStyles((theme) => ({
+   root: {
+      paddingLeft: '10px',
+      margin: '0',
+   },
+   title: {
+      paddingBottom: '1vh',
+   },
+   buttonGroup: {
+      paddingBottom: '1vh',
+   },
+   selectionSection: {
+      height: '39vh',
+   },
+   tweetsContainer: {
+      overflowY: 'scroll',
+      height: '43vh',
+      width: '25vw'
+   },
+   trendContainer: {
+      textIndent: '30px',
+   },
+   trend: {
+      fontSize: '18px',
+      cursor: 'pointer',
+      paddingBottom: '1vh',
+   },
+   trendSelected: {
+      fontSize: '18px',
+      cursor: 'pointer',
+      paddingBottom: '1vh',
+      fontWeight: 'bold',
+   },
+   tweetsHeading: {
+   },
+}));
+
+export default function SideBar(props) {
    const { dataHt, dataSet, selectedState, selectedTrend, } = props;
+
    const [toggleSet, setToggleSet] = useState(false);
    const [tweets, setTweets] = useState([]);
    const [similarity, setSimilarity] = useState({});
+
+   const classes = useStyles();
 
    useEffect(() => {
       async function fetchData(trend) {
          const tweetData = await fetchTweets(trend);
          setTweets(tweetData.data);
       }
-      if(selectedTrend !== 'No Data' && selectedTrend !== '') {
+      if(selectedTrend !== 'No Data' && selectedTrend !== '' && selectedTrend !== undefined) {
          fetchData(selectedTrend);
       }
    }, [selectedTrend]);
@@ -74,57 +117,48 @@ const SideBar = (props) => {
    }, [toggleSet, selectedState, dataHt, dataSet]);
 
    return (
-      <div style={{paddingLeft: "10px"}}>
+      <List className={classes.root}>
          {
-            selectedTrend === 'No Data' || selectedTrend === '' ? <></> :
-            <div>
-               <h2>Trending Now <span role="img" aria-label="fire">🔥</span> in {selectedState}</h2>
-               <button onClick={() => setToggleSet(!toggleSet)}>{toggleSet ? 'Use Hashtable' : 'Use Set'}</button>
-               <h2>{similarity.state} is {similarity.percentage}% Similar (Found in {similarity.time}ms)</h2>
-               {
-                  dataHt[selectedState] ? <div style = {{textIndent: "30px", paddingBottom: "10px"}}>
-                     {dataHt[selectedState].map((trend, i) => {
-                        if (i < 5) { 
-                           return <p style={{fontSize: "18px", cursor: 'pointer', fontWeight: selectedTrend === trend ? "bold" : "normal"}} key={i} onClick={() => {props.onSelectTrend(trend)}}> <span role="img" aria-label="fire">🔥</span>{trend}</p>
-                        }
-                        return <></>
-                     })}
-                  </div> : <div></div>
-               }
-               <h2>Top Tweets about {selectedTrend}</h2>
-               <p>==========</p>
-               <List style={{ overflowY: 'scroll', minHeight: '500px', maxHeight: '500px' }}>
+            selectedTrend === 'No Data' || selectedTrend === '' || selectedTrend === undefined ? <></> :
+            <List>
+               <div className={classes.selectionSection}>
+                     <Typography className={classes.title} variant="h4">Trending Now <span role="img" aria-label="fire">🔥</span> in {selectedState}</Typography>
+                     <ButtonGroup className={classes.buttonGroup} color="primary">
+                        <Button variant={toggleSet ? '' : 'contained'} onClick={() => setToggleSet(false)}>Hash Table</Button>
+                        <Button variant={toggleSet ? 'contained' : ''} onClick={() => setToggleSet(true)}>Set</Button>
+                     </ButtonGroup>
+                     <Typography variant="h6">{similarity.state} is {similarity.percentage}% Similar</Typography>
+                     <Typography variant="subtitle1">(Found in {similarity.time}ms)</Typography>
+                  {dataHt[selectedState] && (
+                        <List className={classes.trendContainer}>
+                           {dataHt[selectedState].map((trend, i) => {
+                              if (i < 5) { 
+                                 return (
+                                    <Typography
+                                       variant="body1"
+                                       className={selectedTrend !== trend ? classes.trend : classes.trendSelected}
+                                       key={trend}
+                                       onClick={() => {props.onSelectTrend(trend)}}
+                                    > 
+                                       <span role="img" aria-label="fire">🔥</span>{trend}
+                                    </Typography>
+                                 )
+                              }
+                              return <></>
+                           })}
+                        </List>
+                     )}
+                  <Typography className={classes.tweetsHeading} variant="h5">Top Tweets about {selectedTrend}</Typography>
+               </div>
+               <List className={classes.tweetsContainer}>
                   {
                      tweets.map((tweet, i) => {
-                           return (
-                              <Tweet
-                                 tweet={tweet}  
-                                 key={i}
-                              />
-                           );
+                           return <Tweet tweet={tweet} key={i} />;
                      })
                   }
                </List>
-            </div>
+            </List>
          }
-      </div>
+      </List>
    );
 };
-
-export default SideBar;
-
-function Tweet({ tweet }) {
-   return (
-      <div className="centerContent" key = {tweet.id} style= {{paddingLeft: '1em', paddingRight: '1em'}}>
-         <div className="selfCenter" style={{justifyContent: 'center', width: '100%'}}>
-            <TwitterTweetEmbed 
-               tweetId={tweet.id_str}
-               options={{
-                  cards: 'hidden',
-                  theme: 'dark'
-               }}
-            />
-         </div>
-      </div>
-   );
-}

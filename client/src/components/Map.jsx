@@ -1,13 +1,25 @@
+import { makeStyles } from '@material-ui/core';
 import React from 'react';
 import USAMap from "react-usa-map";
-import "../constants/format.css";
+import "../constants/formatMap.css";
+
+const useStyles = makeStyles((theme) => ({
+   mapContainer: {
+      marginTop: '5vh',
+      marginLeft: '5vw'
+   }
+}));
 
 const Map = (props) => {
   const { data, selectedState } = props;
-   function mapHandler(event) {
+  
+  const classes = useStyles();
+
+  const mapHandler = (event) => {
       var stateName = event.target.dataset.name;
       props.onSelectState(stateName);  
    };
+
    const colorControl = () => {
       const colorObj = {};
       Object.keys(data).forEach((trend) => {
@@ -23,8 +35,8 @@ const Map = (props) => {
    };
 
   return (
-     <div style={{ height: '100%', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-         <USAMap onClick={mapHandler} customize={colorControl()}></USAMap>             
+     <div className={classes.mapContainer}>
+         <USAMap onClick={mapHandler} customize={colorControl()} width="65vw" height="70vh"></USAMap>             
      </div>
   );
 };

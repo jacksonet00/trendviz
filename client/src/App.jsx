@@ -1,91 +1,143 @@
 import React, { useEffect, useState } from 'react';
 import firebase from './config/firebase';
-import { codes } from './data/states';
 import { colors } from './data/colors';
 import Map from './components/Map';
 import SideBar from './components/SideBar';
 import MenuBar from './components/MenuBar';
 import Loading from './components/Loading';
+import NoData from './components/NoData';
+import { makeStyles } from '@material-ui/core';
+import './constants/formatPage.css';
+
+const useStyles = makeStyles((theme) => ({
+	root: {
+		margin: 0,
+		height: '100vh',
+		maxHeight: '100vh',
+		width: '100vw',
+		maxWidth: '100vw',
+		overflow: 'hidden',
+		backgroundColor: 'black',
+		color: 'white',
+	},
+	grid: {
+		display: 'grid',
+		gridTemplateColumns: '3fr 1fr',
+		height: '85vh',
+		maxHeight: '85vh',
+		overflow: 'hidden'
+	},
+	content: {
+		backgroundColor: 'black',
+	},
+	menuBarContainer: {
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		height: '25vh',
+		width: '75vw',
+		zIndex: 10,
+	},
+	sideBarContainer: {
+		position: 'absolute',
+		right: 0,
+		top: 0,
+		height: '100vh',
+		width: '25vw',
+		borderLeft: '5px solid white'
+	},
+	mapContainer: {
+		position: 'absolute',
+		left: 0,
+		bottom: 0,
+		width: '75vw',
+		height: '80vh',
+		zIndex: 1,
+	}
+}));
 
 const App = () => {
-	const [data, setData] = useState({});
-	const [data2, setData2] = useState({});
-	const [data3, setData3] = useState({});
+	const [dataSet, setDataSet] = useState({});
+	const [dataHt, setDataHt] = useState({});
 	const [mapData, setMapData] = useState({});
 	const [isLoading, setIsLoading] = useState(true);
+	const [noData, setNoData] = useState(true);
 	const [selectedState, setSelectedState] = useState('FL');
 	const [selectedTrend, setSelectedTrend] = useState('');
+
+	const classes = useStyles();
 	
 	useEffect(() => {
 		const db = firebase.firestore();
-		let appData = {};
-		let appData2 = {};
-		let appData3 = {};
+		let appdataSet = {};
+		let appDataHt = {};
 		let appMapData = {};
 
 		db.collection("trends").get().then(function(querySnapshot) {
 			querySnapshot.forEach(function(doc) {
 				if (doc.data().data.length > 0) {
-					appData[doc.data().state] = doc.data().data[0].trends;
-					appData3[doc.data().state] = doc.data().data[0].trends.map(t => t.name);
+					appDataHt[doc.data().state] = doc.data().data;
 					
-					const appData2Set = new Set();
-					doc.data().data[0].trends.map(t => t.name).forEach((trend) => {
-						appData2Set.add(trend);
+					const subset = new Set();
+					doc.data().data.forEach((trend) => {
+						subset.add(trend);
 					});
-					appData2[doc.data().state] = appData2Set;
-				}
-			});
-			codes.forEach((stateCode) => {
-				// 1. check if stateCode is in appData
-				if(!appData.hasOwnProperty(stateCode)) {
-					// 2. if not fill with default data
-					appData[stateCode] = [];
+					appdataSet[doc.data().state] = subset;
 				}
 			});
 			let colorCount = 0;
-			Object.entries(appData3).forEach((entry) => {
+			Object.entries(appDataHt).forEach((entry) => {
 				if (!appMapData.hasOwnProperty(entry[1][0])) {
 					appMapData[entry[1][0]] = { states: [], color: colors[colorCount++] };
 				}
 				appMapData[entry[1][0]].states.push(entry[0]);
 			});
-			setData(appData);
-			setData2(appData2);
-			setData3(appData3);
+			console.log(appDataHt, appdataSet, appMapData);
+			setDataSet(appdataSet);
+			setDataHt(appDataHt);
 			setMapData(appMapData);
+			setNoData(false)
 			setIsLoading(false);
+	  }).catch((err) => {
+		  setDataSet({});
+		  setDataHt({});
+		  setMapData({});
+		  setNoData(true);
+		  setIsLoading(false);
 	  });
 	}, []);
 
 	useEffect(() => {
-      if (data[selectedState] && data[selectedState].length > 0) {
-         setSelectedTrend(data[selectedState][0].name);
+      if (dataHt[selectedState] && dataHt[selectedState].length > 0) {
+         setSelectedTrend(dataHt[selectedState][0]);
 		}
-		else if (data[selectedState] && data[selectedState].length === 0) {
+		else if (dataHt[selectedState] && dataHt[selectedState].length === 0) {
 			setSelectedTrend('No Data');
 		}
-	}, [data, selectedState]);
+	}, [dataHt, selectedState]);
 
-	return(
-		<div style={{ maxHeight: '100vh', overflow: 'hidden'}}>
-			{isLoading ? <Loading /> : 
-				<div style = {{ "color" : "white", backgroundColor : "black" }}>
-					<div style={{ border: "5px solid white", maxHeight: '15vh'}}>
+	const render = () => {
+		if (isLoading) return <Loading />;
+		if (noData) return <NoData />;
+		return (
+			<div className={classes.content}>
+					<div className={classes.menuBarContainer}>
 						<MenuBar
 							data={mapData}
 						/>
 					</div>
-					<div style={{ maxHeight: '85vh', borderLeft: "5px solid white", borderRight: "5px solid white", borderBottom: "5px solid white",display: 'grid', gridTemplateColumns: '3fr 1fr' }}>
+					<div className={classes.grid}>
+						<div className={classes.mapContainer}>
 							<Map
 								data={mapData}
 								selectedState={selectedState}
 								onSelectState={(stateCode) => setSelectedState(stateCode)}
 							/>
-						<div style={{borderLeft: "5px solid white"}}>
+						</div>
+						<div className={classes.sideBarContainer}>
 							<SideBar
-								dataHt={data3}
-								dataSet={data2}
+								dataHt={dataHt}
+								dataSet={dataSet}
 								selectedState={selectedState}
 								selectedTrend={selectedTrend}
 								onSelectTrend={(trend) => setSelectedTrend(trend)}
@@ -93,7 +145,12 @@ const App = () => {
 						</div>
 					</div>
 				</div>
-			}
+		);
+	}
+
+	return(
+		<div className={classes.root}>
+			{render()}
 		</div>
 	)
 };

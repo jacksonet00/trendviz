@@ -9,9 +9,13 @@ import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
+		height: '100vh',
 		maxHeight: '100vh',
+		width: '100vw',
 		maxWidth: '100vw',
 		overflow: 'hidden',
+		backgroundColor: 'black',
+		color: 'white',
 	},
 	grid: {
 		display: 'grid',
@@ -19,16 +23,31 @@ const useStyles = makeStyles((theme) => ({
 		height: '85vh',
 	},
 	content: {
-		color: 'white',
 		backgroundColor: 'black',
 	},
 	menuBarContainer: {
-		borderBottom: '5px solid white',
-		height: '15vh',
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		height: '20vh',
+		width: '75vw',
+		borderBottom: '5px solid white'
 	},
 	sideBarContainer: {
-		borderLeft: '5px solid white',
+		position: 'absolute',
+		right: 0,
+		top: 0,
+		height: '100vh',
+		width: '25vw',
+		borderLeft: '5px solid white'
 	},
+	mapContainer: {
+		position: 'absolute',
+		left: 0,
+		bottom: 0,
+		width: '75vw',
+		height: '80vh',
+	}
 }));
 
 const App = () => {
@@ -50,10 +69,10 @@ const App = () => {
 		db.collection("trends").get().then(function(querySnapshot) {
 			querySnapshot.forEach(function(doc) {
 				if (doc.data().data.length > 0) {
-					appDataHt[doc.data().state] = doc.data().data[0].trends.map(t => t.name);
+					appDataHt[doc.data().state] = doc.data().data;
 					
 					const subset = new Set();
-					doc.data().data[0].trends.map(t => t.name).forEach((trend) => {
+					doc.data().data.forEach((trend) => {
 						subset.add(trend);
 					});
 					appdataSet[doc.data().state] = subset;
@@ -66,6 +85,7 @@ const App = () => {
 				}
 				appMapData[entry[1][0]].states.push(entry[0]);
 			});
+			console.log(appDataHt, appdataSet, appMapData);
 			setDataSet(appdataSet);
 			setDataHt(appDataHt);
 			setMapData(appMapData);
@@ -92,11 +112,13 @@ const App = () => {
 						/>
 					</div>
 					<div className={classes.grid}>
-						<Map
-							data={mapData}
-							selectedState={selectedState}
-							onSelectState={(stateCode) => setSelectedState(stateCode)}
-						/>
+						<div className={classes.mapContainer}>
+							<Map
+								data={mapData}
+								selectedState={selectedState}
+								onSelectState={(stateCode) => setSelectedState(stateCode)}
+							/>
+						</div>
 						<div className={classes.sideBarContainer}>
 							<SideBar
 								dataHt={dataHt}

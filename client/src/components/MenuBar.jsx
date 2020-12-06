@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
+      cursor: 'default'
    },
    chip: {
       fontWeight: 'bold',

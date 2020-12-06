@@ -5,9 +5,8 @@ import "../constants/formatMap.css";
 
 const useStyles = makeStyles((theme) => ({
    mapContainer: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
+      marginTop: '5vh',
+      marginLeft: '5vw'
    }
 }));
 
@@ -37,7 +36,7 @@ const Map = (props) => {
 
   return (
      <div className={classes.mapContainer}>
-         <USAMap onClick={mapHandler} customize={colorControl()}></USAMap>             
+         <USAMap onClick={mapHandler} customize={colorControl()} width="65vw" height="70vh"></USAMap>             
      </div>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import List from '@material-ui/core/List';
-import { Container, Grid, makeStyles, Typography } from '@material-ui/core';
+import { makeStyles, Typography } from '@material-ui/core';
 import Tweet from './Tweet';
 import fetchTweets from '../actions/fetchTweets';
 import Button from '@material-ui/core/Button';
@@ -10,20 +10,22 @@ const useStyles = makeStyles((theme) => ({
    root: {
       paddingLeft: '10px',
       margin: '0',
+      overflow: 'hidden'
    },
    title: {
       paddingBottom: '1vh',
+      fontSize: '2vw'
    },
    buttonGroup: {
       paddingBottom: '1vh',
    },
    selectionSection: {
-      height: '39vh',
+      height: '45vh',
    },
    tweetsContainer: {
-      overflowY: 'scroll',
-      height: '43vh',
-      width: '25vw'
+      overflow: 'scroll',
+      height: '100%',
+      maxHeight: '50vh',
    },
    trendContainer: {
       textIndent: '30px',
@@ -153,7 +155,7 @@ export default function SideBar(props) {
                <List className={classes.tweetsContainer}>
                   {
                      tweets.map((tweet, i) => {
-                           return <Tweet tweet={tweet} key={i} />;
+                           return <Tweet tweet={tweet} key={tweet.id} />;
                      })
                   }
                </List>

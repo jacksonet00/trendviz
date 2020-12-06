@@ -5,10 +5,13 @@ import Map from './components/Map';
 import SideBar from './components/SideBar';
 import MenuBar from './components/MenuBar';
 import Loading from './components/Loading';
+import NoData from './components/NoData';
 import { makeStyles } from '@material-ui/core';
+import './constants/formatPage.css';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
+		margin: 0,
 		height: '100vh',
 		maxHeight: '100vh',
 		width: '100vw',
@@ -21,6 +24,8 @@ const useStyles = makeStyles((theme) => ({
 		display: 'grid',
 		gridTemplateColumns: '3fr 1fr',
 		height: '85vh',
+		maxHeight: '85vh',
+		overflow: 'hidden'
 	},
 	content: {
 		backgroundColor: 'black',
@@ -29,9 +34,9 @@ const useStyles = makeStyles((theme) => ({
 		position: 'absolute',
 		top: 0,
 		left: 0,
-		height: '20vh',
+		height: '25vh',
 		width: '75vw',
-		borderBottom: '5px solid white'
+		zIndex: 10,
 	},
 	sideBarContainer: {
 		position: 'absolute',
@@ -47,6 +52,7 @@ const useStyles = makeStyles((theme) => ({
 		bottom: 0,
 		width: '75vw',
 		height: '80vh',
+		zIndex: 1,
 	}
 }));
 
@@ -55,6 +61,7 @@ const App = () => {
 	const [dataHt, setDataHt] = useState({});
 	const [mapData, setMapData] = useState({});
 	const [isLoading, setIsLoading] = useState(true);
+	const [noData, setNoData] = useState(true);
 	const [selectedState, setSelectedState] = useState('FL');
 	const [selectedTrend, setSelectedTrend] = useState('');
 
@@ -89,7 +96,14 @@ const App = () => {
 			setDataSet(appdataSet);
 			setDataHt(appDataHt);
 			setMapData(appMapData);
+			setNoData(false)
 			setIsLoading(false);
+	  }).catch((err) => {
+		  setDataSet({});
+		  setDataHt({});
+		  setMapData({});
+		  setNoData(true);
+		  setIsLoading(false);
 	  });
 	}, []);
 
@@ -102,10 +116,11 @@ const App = () => {
 		}
 	}, [dataHt, selectedState]);
 
-	return(
-		<div className={classes.root}>
-			{isLoading ? <Loading /> : 
-				<div className={classes.content}>
+	const render = () => {
+		if (isLoading) return <Loading />;
+		if (noData) return <NoData />;
+		return (
+			<div className={classes.content}>
 					<div className={classes.menuBarContainer}>
 						<MenuBar
 							data={mapData}
@@ -130,7 +145,12 @@ const App = () => {
 						</div>
 					</div>
 				</div>
-			}
+		);
+	}
+
+	return(
+		<div className={classes.root}>
+			{render()}
 		</div>
 	)
 };

@@ -68,7 +68,7 @@ module.exports.states = [
       woeid: 2430683
    },
    {
-      stateCode: 'NB',
+      stateCode: 'NE',
       woeid: 23424977
    },
    {
@@ -128,7 +128,7 @@ module.exports.states = [
       woeid: 2451822
    },
    {
-      stateCode: 'WS',
+      stateCode: 'WI',
       woeid: 23424977
    },{
       stateCode: 'AL',

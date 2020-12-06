@@ -23,9 +23,9 @@ setTimeout(() => {
 	console.log('refreshing trend data...');
 	states.forEach((stateObj) => {
 		T.get('trends/place', { id: stateObj.woeid, }, (err, data, response) => {
-			db.collection("trends").add({
+			db.collection("trends").doc(stateObj.stateCode).state({
 				state: stateObj.stateCode,
-				data,
+				data: data[0].trends.map((t) => t.name),
 			});
 		});
 	});

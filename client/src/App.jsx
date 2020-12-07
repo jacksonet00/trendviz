@@ -92,7 +92,6 @@ const App = () => {
 				}
 				appMapData[entry[1][0]].states.push(entry[0]);
 			});
-			console.log(appDataHt, appdataSet, appMapData);
 			setDataSet(appdataSet);
 			setDataHt(appDataHt);
 			setMapData(appMapData);

@@ -74,7 +74,7 @@ export default function SideBar(props) {
          Object.keys(dataHt).forEach((state) => {
             let currSimilarity = 0;
             if (state !== selectedState) {
-               dataHt[selectedState].forEach((trend, i) => {
+               dataHt[selectedState].forEach((trend) => {
                   if (dataHt[state].includes(trend)) {
                      currSimilarity++;
                   }
@@ -97,9 +97,6 @@ export default function SideBar(props) {
          let maxSimilarity = 0;
          Object.keys(dataSet).forEach((state) => {
             if (state !== selectedState) {
-               let a = dataSet[selectedState];
-               let b = dataSet[state];
-               console.log(a, b);
                let intersection = new Set([...dataSet[selectedState]].filter((trend) => {
                   return dataSet[state].has(trend);
                }));

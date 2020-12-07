@@ -21,10 +21,10 @@ const port = process.env.PORT || 5000;
 
 setTimeout(() => {
 	console.log('refreshing trend data...');
-	db.collection("trends").get().then(res => {
-		res.forEach(element => {
-	  		element.ref.delete();
-	});
+	// db.collection("trends").get().then(res => {
+	// 	res.forEach(element => {
+	//   		element.ref.delete();
+	// });
   });
 	states.forEach((stateObj) => {
 		T.get('trends/place', { id: stateObj.woeid, }, (err, data, response) => {
